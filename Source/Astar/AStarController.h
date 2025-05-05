@@ -18,7 +18,16 @@ class ASTAR_API AAStarController : public AAIController
 public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	ACharacter* ControlCharacter;
+	UClass* Goal;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	int InverseSpeed;
+
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FIntVector2 Target;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	AActor* GoalObj;
 
 	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	//FIntVector2 Position;
@@ -27,8 +36,12 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	bool CanWalk(FIntVector2 pos);
-	FIntVector2 NextPosition();
+	bool CanWalk(bool Grid[MAPY][MAPX], FIntVector2& Pos);
+	void GenerateNextPosition();
+	void SetRandomTarget();
 
+	int MixDiff;
+	FIntVector2 End;
+	FIntVector2 Start;
 	
 };
